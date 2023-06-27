@@ -4,8 +4,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@interfaces/*": [
+        "src/app/countries/interfaces/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
+      ],
+      "@services/*": [
+        "src/app/services/*"
       ],
     },
     "outDir": "./dist/out-tsc",

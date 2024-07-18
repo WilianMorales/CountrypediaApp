@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SiderbarComponent } from './components/siderbar/siderbar.component';
 import { RouterModule } from '@angular/router';
+
+import { SiderbarComponent } from './components/siderbar/siderbar.component';
+import { SearchBoxComponent } from './components/search-box/search-box.component';
 
 
 
 @NgModule({
   declarations: [
-    SiderbarComponent
+    SiderbarComponent,
+    SearchBoxComponent
   ],
   imports: [
     CommonModule,
     RouterModule
   ],
   exports: [
-    SiderbarComponent
+    SiderbarComponent,
+    SearchBoxComponent
   ]
 })
 export class SharedModule { }

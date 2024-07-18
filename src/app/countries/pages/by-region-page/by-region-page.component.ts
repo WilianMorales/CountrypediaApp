@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CountriesService } from '@services/countries.service';
 
-import { Country } from '@interfaces/country';
+import { Country } from '@interfaces/country.interface';
 
 type Region = 'Africa'| 'Americas'| 'Asia'| 'Europe'| 'Oceania';
 

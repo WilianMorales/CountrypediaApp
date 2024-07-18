@@ -1,0 +1,15 @@
+.spinner-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 10px 10px;
+  position: relative;
+}
+
+span {
+  font-size: 1em;
+  color: #03A9F4;
+  font-weight: bolder;
+  letter-spacing: 0.15em;
+  margin-left: 5px;
+}

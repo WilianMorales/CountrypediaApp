@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes planeFly {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-10deg);
+  }
+  20% {
+    transform: translateX(8px) translateY(-3px) rotate(-6deg);
+  }
+  50% {
+    transform: translateX(16px) translateY(-8px) rotate(0deg);
+  }
+  80% {
+    transform: translateX(8px) translateY(-3px) rotate(-4deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(-10deg);
+  }
+}
+
+.plane-fly {
+  animation: planeFly 2.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes vanDrive {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  20% {
+    transform: translateX(1px) translateY(-1px);
+  }
+  40% {
+    transform: translateX(2px) translateY(0);
+  }
+  60% {
+    transform: translateX(1px) translateY(1px);
+  }
+  80% {
+    transform: translateX(-1px) translateY(0);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+.van-drive {
+  animation: vanDrive 0.55s ease-in-out infinite;
+  transform-origin: center;
+}

@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from "../../../shared/components/footer/footer.component";
+import { TopMenuComponent } from "../../components/top-menu/top-menu.component";
+
+
+@Component({
+  selector: 'app-country-layout',
+  imports: [RouterOutlet, FooterComponent, TopMenuComponent],
+  templateUrl: './country-layout.component.html',
+})
+export class CountryLayoutComponent {
+
+}

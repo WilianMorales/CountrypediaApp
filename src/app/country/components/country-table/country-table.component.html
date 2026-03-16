@@ -1,0 +1,59 @@
+<section class="my-6">
+  <div class="mx-auto max-w-6xl overflow-x-auto rounded-xl border border-gray-200 bg-transparent shadow-lg backdrop-blur-sm">
+    <table class="table">
+      <thead class="text-slate-200">
+        <tr class="border-b border-gray-800 bg-gray-800">
+          <th>#</th>
+          <th>Bandera</th>
+          <th>País</th>
+          <th>Capital</th>
+          <th>Región</th>
+          <th>Población</th>
+          <th>Idioma</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (country of countries; track country.name.common) {
+          <tr class="border-b border-gray-400 text-gray-800 hover:bg-slate-800/70 transition-colors">
+            <td>
+              <img
+                [src]="country.flags.svg"
+                [alt]="country.name.common"
+                class="h-8 w-12 rounded object-cover shadow-sm"
+              />
+            </td>
+
+            <td class="font-semibold">
+              {{ country.name.common }}
+            </td>
+
+            <td>
+              {{ country.capital?.[0] || 'Sin capital' }}
+            </td>
+
+            <td>
+              {{ country.region }}
+            </td>
+
+            <td>
+              {{ country.population | number }}
+            </td>
+
+            <td>
+              {{ getMainLanguage(country.languages) }}
+            </td>
+
+            <td></td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="py-8 text-center text-gray-500">
+              No se encontraron resultados
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

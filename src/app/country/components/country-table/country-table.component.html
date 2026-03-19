@@ -6,49 +6,53 @@
           <th>#</th>
           <th>Bandera</th>
           <th>País</th>
+          <th>Moneda</th>
           <th>Capital</th>
           <th>Región</th>
-          <th>Población</th>
-          <th>Idioma</th>
+          <th class="text-center">Población</th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody>
-        @for (country of countries; track country.name.common) {
-          <tr class="border-b border-gray-400 text-gray-800 hover:bg-slate-800/70 transition-colors">
+        @for (country of countries(); track country.cca2; let index = $index) {
+          <tr class="text-gray-800 hover:bg-slate-300/70 transition-colors">
+            <td>
+              {{ index + 1 }}
+            </td>
             <td>
               <img
-                [src]="country.flags.svg"
-                [alt]="country.name.common"
+                [src]="country.flagSvg"
+                [alt]="country.name"
                 class="h-8 w-12 rounded object-cover shadow-sm"
               />
             </td>
-
             <td class="font-semibold">
-              {{ country.name.common }}
+              {{ country.name }}
             </td>
-
             <td>
-              {{ country.capital?.[0] || 'Sin capital' }}
+              {{ country.currencies }}
             </td>
-
             <td>
-              {{ country.region }}
+              {{ country.capital }}
             </td>
-
             <td>
-              {{ country.population | number }}
+              {{ country.continents }}
             </td>
-
+            <td class="text-center">
+              <div class="badge badge-primary text-slate-900">
+                {{ country.population | number }}
+              </div>
+            </td>
             <td>
-              {{ getMainLanguage(country.languages) }}
+              <button class="inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-700/80 px-3 py-2 text-sm font-medium text-slate-200 transition-all duration-300 hover:bg-slate-600 hover:text-yellow-400">
+                <i class="fa-solid fa-eye text-xs"></i> Detalle
+              </button>
             </td>
-
-            <td></td>
           </tr>
         } @empty {
           <tr>
-            <td colspan="6" class="py-8 text-center text-gray-500">
+            <td colspan="8" class="py-8 text-center text-gray-500">
               No se encontraron resultados
             </td>
           </tr>

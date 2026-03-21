@@ -1,63 +1,92 @@
-<section class="my-6">
-  <div class="mx-auto max-w-6xl overflow-x-auto rounded-xl border border-gray-200 bg-transparent shadow-lg backdrop-blur-sm">
-    <table class="table">
-      <thead class="text-slate-200">
-        <tr class="border-b border-gray-800 bg-gray-800">
-          <th>#</th>
-          <th>Bandera</th>
-          <th>País</th>
-          <th>Moneda</th>
-          <th>Capital</th>
-          <th>Región</th>
-          <th class="text-center">Población</th>
-          <th></th>
-        </tr>
-      </thead>
+@if (isLoading()) {
+  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-base-100/80 backdrop-blur-md">
+    <div class="relative flex items-center justify-center">
+      <i class="fa-solid fa-earth-americas text-7xl text-emerald-500 animate-spin-slow"></i>
+      <div class="flight-path"></div>
+      <div class="absolute animate-fly">
+        <i class="fa-solid fa-plane text-xl text-amber-500 relative z-10"></i>
+        <span class="trail"></span>
+      </div>
+    </div>
 
-      <tbody>
-        @for (country of countries(); track country.cca2; let index = $index) {
-          <tr class="text-gray-800 hover:bg-slate-300/70 transition-colors">
-            <td>
-              {{ index + 1 }}
-            </td>
-            <td>
-              <img
-                [src]="country.flagSvg"
-                [alt]="country.name"
-                class="h-8 w-12 rounded object-cover shadow-sm"
-              />
-            </td>
-            <td class="font-semibold">
-              {{ country.name }}
-            </td>
-            <td>
-              {{ country.currencies }}
-            </td>
-            <td>
-              {{ country.capital }}
-            </td>
-            <td>
-              {{ country.continents }}
-            </td>
-            <td class="text-center">
-              <div class="badge badge-primary text-slate-900">
-                {{ country.population | number }}
-              </div>
-            </td>
-            <td>
-              <button class="inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-700/80 px-3 py-2 text-sm font-medium text-slate-200 transition-all duration-300 hover:bg-slate-600 hover:text-yellow-400">
-                <i class="fa-solid fa-eye text-xs"></i> Detalle
-              </button>
-            </td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="8" class="py-8 text-center text-gray-500">
-              No se encontraron resultados
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <p class="mt-6 text-lg font-medium text-slate-600 animate-pulse">
+      Buscando países...
+    </p>
   </div>
-</section>
+}
+
+@if (errorMessage() && !isLoading()) {
+  <div class="mt-12 flex justify-center">
+    <div class="alert alert-error max-w-md shadow-lg">
+      <i class="fa-solid fa-circle-exclamation text-2xl"></i>
+      <div>
+        <h3 class="font-bold">Error al buscar</h3>
+        <p class="text-sm">No se pudo completar la búsqueda. Verifica tu conexión e intenta de nuevo.</p>
+      </div>
+    </div>
+  </div>
+}
+
+@if (isEmpty() && !isLoading() && !errorMessage()) {
+  <div class="mt-16 flex flex-col items-center justify-center gap-3 text-center">
+    <i class="fa-solid fa-map-location-dot text-7xl text-slate-200"></i>
+    <h2 class="text-xl font-semibold text-slate-500">Sin resultados</h2>
+    <p class="text-slate-400">No se encontraron coincidencias. Intenta con otro nombre.</p>
+  </div>
+}
+
+@if (countries().length > 0) {
+  <section class="my-6">
+    <p class="mb-3 text-sm text-slate-400 text-left md:text-center">
+      <span class="font-semibold text-amber-500">{{ countries().length }}</span>
+      {{ countries().length === 1 ? 'resultado encontrado.' : 'resultados encontrados.' }}
+    </p>
+    <div class="mx-auto max-w-6xl overflow-x-auto rounded-xl border border-gray-200 bg-transparent shadow-lg backdrop-blur-sm">
+      <table class="table">
+        <thead class="text-slate-200">
+          <tr class="border-b border-gray-800 bg-gray-800">
+            <th>#</th>
+            <th>Bandera</th>
+            <th>País</th>
+            <th>Moneda</th>
+            <th>Capital</th>
+            <th>Región</th>
+            <th class="text-center">Población</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (country of countries(); track country.cca2; let index = $index) {
+            <tr class="text-gray-800 transition-colors hover:bg-slate-300/70">
+              <td>{{ index + 1 }}</td>
+              <td>
+                <img
+                  [src]="country.flagSvg"
+                  [alt]="country.name"
+                  class="h-8 w-12 rounded object-cover shadow-sm"
+                />
+              </td>
+              <td class="font-semibold">{{ country.name }}</td>
+              <td>{{ country.currencies }}</td>
+              <td>{{ country.capital }}</td>
+              <td>{{ country.continents }}</td>
+              <td class="text-center">
+                <div class="badge badge-primary text-slate-900">
+                  {{ country.population | number }}
+                </div>
+              </td>
+              <td>
+                <button
+                  [routerLink]="['/country/by', country.cca2]"
+                  class="inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-700/80 px-3 py-2 text-sm font-medium text-slate-200 transition-all duration-300 hover:bg-slate-600 hover:text-yellow-400">
+                  <i class="fa-solid fa-eye text-xs"></i> Detalle
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

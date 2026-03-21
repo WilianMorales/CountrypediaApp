@@ -1,3 +1,24 @@
-<country-search-input placeholder="Buscar por país..."/>
+<div class="py-8 px-4 max-w-7xl mx-auto">
+  <div class="mb-8 text-center">
+    <p class="mt-1 text-slate-400">Explora información detallada de países alrededor del mundo!</p>
+  </div>
 
-<country-table-list [countries]="[]" />
+  <country-search-input
+    (value)="query.set($event)"
+    placeholder="Buscar por país..." />
+
+  @if (!query()) {
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 text-center">
+      <i class="fa-solid fa-earth-americas text-8xl text-amber-500/20"></i>
+      <p class="mt-2 text-slate-400">
+        Escribe el nombre del país y obtén al instante su información, región, población y más datos.
+      </p>
+    </div>
+  } @else {
+    <country-table-list
+      [countries]="countryResource.value() ?? []"
+      [errorMessage]="countryResource.error()"
+      [isEmpty]="(countryResource.value()?.length === 0) && !countryResource.isLoading()"
+      [isLoading]="countryResource.isLoading()" />
+  }
+</div>

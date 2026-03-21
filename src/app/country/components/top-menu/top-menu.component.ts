@@ -32,7 +32,7 @@ export class TopMenuComponent {
     {
       label: 'Comparar País',
       icon: 'fa-solid fa-scale-balanced',
-      route: 'by-language'
+      route: 'compare-county'
     },
     {
       label: 'Por Idioma',
@@ -42,7 +42,7 @@ export class TopMenuComponent {
     {
       label: 'Favoritos',
       icon: 'fa-solid fa-star',
-      route: 'by-language'
+      route: 'favorites'
     }
   ];
 }

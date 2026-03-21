@@ -1,5 +1,7 @@
-<country-search-input
-  (value)="onSearch($event)"
-  placeholder="Buscar por capital..." />
+<div class="py-8 px-4">
+  <country-search-input
+    (value)="onSearch($event)"
+    placeholder="Buscar por capital..." />
 
-<country-table-list [countries]="countries()" />
+  <country-table-list [countries]="countries()" />
+</div>

@@ -1,0 +1,40 @@
+@keyframes float {
+  0%,100% { transform: translateY(0px) rotate(-2deg); }
+  50%      { transform: translateY(-16px) rotate(2deg); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(0.5); opacity: 0.7; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+@keyframes spin-ring {
+  to { transform: rotate(360deg); }
+}
+@keyframes drift-a {
+  0%,100% { transform: translate(0,0); opacity: .55; }
+  50%     { transform: translate(-8px,-10px); opacity: .9; }
+}
+@keyframes drift-b {
+  0%,100% { transform: translate(0,0); opacity: .45; }
+  50%     { transform: translate(10px,-6px); opacity: .8; }
+}
+@keyframes drift-c {
+  0%,100% { transform: translate(0,0); opacity: .5; }
+  50%     { transform: translate(6px,8px); opacity: .75; }
+}
+
+.globe-float  { animation: float 4s ease-in-out infinite; }
+.ring-spin    { animation: spin-ring 22s linear infinite; transform-origin: center; }
+.ring-pulse-1 { animation: pulse-ring 2.4s ease-out infinite; }
+.ring-pulse-2 { animation: pulse-ring 2.4s ease-out infinite 0.8s; }
+.ring-pulse-3 { animation: pulse-ring 2.4s ease-out infinite 1.6s; }
+.pin-drift-a  { animation: drift-a 5s ease-in-out infinite; }
+.pin-drift-b  { animation: drift-b 6.5s ease-in-out infinite 1s; }
+.pin-drift-c  { animation: drift-c 7s ease-in-out infinite 2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-float, .ring-spin,
+  .ring-pulse-1, .ring-pulse-2, .ring-pulse-3,
+  .pin-drift-a, .pin-drift-b, .pin-drift-c {
+    animation: none;
+  }
+}

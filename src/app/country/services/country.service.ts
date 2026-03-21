@@ -53,12 +53,11 @@ export class CountryService {
       );
   }
 
-  getCountryByCode(code: string): Observable<Country | null> {
+  getCountryByCode(code: string): Observable<Country> {
     return this.http
       .get<RestCountry[]>(`${API_URL}/alpha/${code}`)
       .pipe(
-        map((resp) => (resp.length ? CountryMapper.mapRestCountryToCountry(resp[0]) : null)),
-        catchError(() => of(null))
+        map((resp) => CountryMapper.mapRestCountryToCountry(resp[0]))
       );
   }
 }

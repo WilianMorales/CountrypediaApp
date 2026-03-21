@@ -29,9 +29,9 @@
 
 @if (isEmpty() && !isLoading() && !errorMessage()) {
   <div class="mt-16 flex flex-col items-center justify-center gap-3 text-center">
-    <i class="fa-solid fa-map-location-dot text-7xl text-slate-200"></i>
+    <app-globe [size]="90" />
     <h2 class="text-xl font-semibold text-slate-500">Sin resultados</h2>
-    <p class="text-slate-400">No se encontraron coincidencias. Intenta con otro nombre.</p>
+    <p class="text-slate-400">Buscamos en todos los rincones del mundo y no encontramos coincidencias. Intenta con otro nombre.</p>
   </div>
 }
 

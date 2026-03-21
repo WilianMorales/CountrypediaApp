@@ -1,0 +1,35 @@
+<div class="flex lg:min-h-[80vh] flex-col items-center justify-center px-4 py-8 text-center">
+  <app-globe [size]="130" [symbol]="'!'" />
+
+  <div class="slide-up-1 mb-8 max-w-md">
+    <h1 class="mb-3 text-2xl font-bold text-slate-700 md:text-3xl">
+      Ups… País no encontrado
+    </h1>
+    <p class="text-slate-400">
+      Buscamos en todos los rincones del mundo y no encontramos ese país.
+      Intenta con otro nombre o verifica que esté bien escrito.
+    </p>
+  </div>
+
+  <div class="slide-up-2 mb-8 flex items-center gap-3 text-slate-300">
+    <div class="h-px w-16 bg-slate-200"></div>
+    <i class="fa-solid fa-compass text-xl text-amber-400"></i>
+    <div class="h-px w-16 bg-slate-200"></div>
+  </div>
+
+  <div class="slide-up-3 flex flex-col gap-3 sm:flex-row">
+    <button
+      (click)="goBack()"
+      class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:border-slate-400 hover:bg-slate-50">
+      <i class="fa-solid fa-arrow-left text-sm"></i>
+      Volver atrás
+    </button>
+
+    <a
+      routerLink="/"
+      class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:bg-amber-600">
+      <i class="fa-solid fa-house text-sm"></i>
+      Ir al inicio
+    </a>
+  </div>
+</div>

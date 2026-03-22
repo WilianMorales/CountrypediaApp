@@ -38,24 +38,34 @@
 
         <!-- Escudo de armas -->
         <div class="sm:col-span-5">
-          @if (country().coatOfArms) {
-            <div class="card bg-base-200 border border-base-300 shadow-md h-full">
-              <div class="card-body flex-grow text-center items-center gap-3 py-4">
+          <div class="card bg-base-200 border border-base-300 shadow-md h-full">
+            <div class="card-body flex-grow text-center items-center justify-center gap-3 py-4">
+              @if (country().coatOfArms) {
                 <img
                   [src]="country().coatOfArms"
                   [alt]="'Escudo de ' + country().name"
                   class="h-24 w-auto object-contain drop-shadow-md" />
                 <div>
                   <p class="text-xs font-bold uppercase tracking-widest text-base-content/50 mb-1">
-                    <i class="fa-solid fa-shield-halved text-accent mr-1"></i>Escudo de Armas
+                    <i class="fa-solid fa-shield-halved text-amber-500 mr-1"></i>Escudo de Armas
                   </p>
                   <p class="text-sm text-base-content/70">
                     Emblema oficial de {{ country().name }}
                   </p>
                 </div>
-              </div>
+              } @else {
+                <i class="fa-solid fa-shield-halved text-5xl text-base-content/15"></i>
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-widest text-base-content/50 mb-1">
+                    <i class="fa-solid fa-shield-halved text-amber-500 mr-1"></i>Escudo de Armas
+                  </p>
+                  <p class="text-sm text-base-content/40 italic">
+                    Sin escudo registrado
+                  </p>
+                </div>
+              }
             </div>
-          }
+          </div>
         </div>
 
       </div>
@@ -63,7 +73,7 @@
       <!-- Estadísticas (debajo de nombre + escudo) -->
       <div class="stats stats-vertical sm:stats-horizontal shadow w-full bg-base-200 border border-base-300">
         <div class="stat">
-          <div class="stat-figure text-accent">
+          <div class="stat-figure text-amber-500">
             <i class="fa-solid fa-people-group text-3xl"></i>
           </div>
           <div class="stat-title">Población</div>
@@ -72,7 +82,7 @@
         </div>
 
         <div class="stat">
-          <div class="stat-figure text-accent">
+          <div class="stat-figure text-amber-500">
             <i class="fa-solid fa-ruler-combined text-3xl"></i>
           </div>
           <div class="stat-title">Área</div>
@@ -81,7 +91,7 @@
         </div>
 
         <div class="stat">
-          <div class="stat-figure text-accent">
+          <div class="stat-figure text-amber-500">
             <i class="fa-solid fa-city text-3xl"></i>
           </div>
           <div class="stat-title">Capital</div>
@@ -97,9 +107,9 @@
   <div class="card bg-base-200 border border-base-300 shadow-md">
     <div class="card-body">
       <h3 class="card-title text-base-content/80 mb-4 justify-center">
-        <i class="fa-solid fa-clock text-accent"></i>
+        <i class="fa-solid fa-clock text-amber-500"></i>
         Zonas Horarias
-        <div class="badge badge-accent">{{ country().timezones.length }}</div>
+        <div class="badge badge-warning">{{ country().timezones.length }}</div>
       </h3>
 
       <div class="flex flex-wrap gap-3 justify-center">
@@ -147,17 +157,17 @@
     <div class="card bg-base-200 border border-base-300 shadow-md">
       <div class="card-body">
         <h3 class="card-title text-base-content/80 text-base mb-3">
-          <i class="fa-solid fa-coins text-accent"></i>
+          <i class="fa-solid fa-coins text-amber-500"></i>
           Monedas
           @if (country().currencies.length > 0) {
-            <div class="badge badge-accent badge-sm">{{ country().currencies.length }}</div>
+            <div class="badge badge-warning badge-sm">{{ country().currencies.length }}</div>
           }
         </h3>
         <div class="flex flex-col gap-2">
           @for (currency of country().currencies; track currency.name) {
             <div class="flex items-center gap-3 bg-base-100 rounded-xl p-3 border border-base-300 min-w-0">
               @if (currency.symbol) {
-                <div class="badge badge-accent font-bold text-sm px-3 py-3 shrink-0">
+                <div class="badge badge-warning font-bold text-sm px-3 py-3 shrink-0">
                   {{ currency.symbol }}
                 </div>
               }
@@ -177,16 +187,16 @@
     <div class="card bg-base-200 border border-base-300 shadow-md">
       <div class="card-body">
         <h3 class="card-title text-base-content/80 text-base mb-3">
-          <i class="fa-solid fa-language text-accent"></i>
+          <i class="fa-solid fa-language text-amber-500"></i>
           Idiomas
           @if (country().languages.length > 0) {
-            <div class="badge badge-accent badge-sm">{{ country().languages.length }}</div>
+            <div class="badge badge-warning badge-sm">{{ country().languages.length }}</div>
           }
         </h3>
         <div class="flex flex-wrap gap-2">
           @for (lang of country().languages; track lang; let i = $index) {
             @if (i === 0) {
-              <div class="flex items-center gap-1 badge badge-accent badge-lg font-semibold py-4 px-4 shadow max-w-full">
+              <div class="flex items-center gap-1 badge badge-warning text-slate-800 badge-lg font-semibold py-4 px-4 shadow max-w-full">
                 <i class="fa-solid fa-star text-xs shrink-0"></i>
                 <span class="truncate">{{ lang }}</span>
                 @if (country().languages.length > 1) {
@@ -210,17 +220,17 @@
     <div class="card bg-base-200 border border-base-300 shadow-md">
       <div class="card-body">
         <h3 class="card-title text-base-content/80 text-base mb-3">
-          <i class="fa-solid fa-border-all text-accent"></i>
+          <i class="fa-solid fa-border-all text-amber-500"></i>
           Limita con
           @if (country().borders.length > 0) {
-            <div class="badge badge-accent badge-sm">{{ country().borders.length }}</div>
+            <div class="badge badge-warning badge-sm">{{ country().borders.length }}</div>
           }
         </h3>
         @if (country().borders.length > 0) {
           <div class="flex flex-wrap gap-2">
             @for (border of country().borders; track border) {
               <a [routerLink]="['/country/by', border]"
-                class="badge badge-outline badge-lg font-mono font-bold hover:badge-accent transition-colors cursor-pointer py-4 px-4">
+                class="badge badge-outline badge-lg font-mono font-bold hover:badge-warning hover:!text-slate-800 transition-colors cursor-pointer py-4 px-4">
                 <i class="fa-solid fa-flag text-xs mr-1"></i>
                 {{ border }}
               </a>
@@ -228,7 +238,7 @@
           </div>
         } @else {
           <div class="flex items-center gap-3 text-base-content/50 py-2">
-            <i class="fa-solid fa-water text-2xl text-accent/40"></i>
+            <i class="fa-solid fa-water text-2xl text-orange-500/40"></i>
             <div>
               <p class="text-sm font-medium">Sin fronteras terrestres</p>
               <p class="text-xs opacity-70">País insular o totalmente rodeado de agua</p>

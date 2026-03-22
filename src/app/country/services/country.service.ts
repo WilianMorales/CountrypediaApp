@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RestCountry } from '../interfaces/rest-country.interface';
-import { catchError, delay, map, Observable, of } from 'rxjs';
+import { catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { Country } from '../interfaces/country.interfaces';
 import { CountryMapper } from '../mappers/country.mapper';
 
@@ -13,23 +13,36 @@ const API_URL = 'https://restcountries.com/v3.1';
 export class CountryService {
   private http = inject(HttpClient);
 
+  private queryCacheCapital = new Map<string, Country[]>();
+  private queryCacheCountry = new Map<string, Country[]>();
+
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
+
+    if (this.queryCacheCapital.has(query)) {
+      return of(this.queryCacheCapital.get(query) ?? []);
+    }
 
     return this.http
       .get<RestCountry[]>(`${API_URL}/capital/${query}`)
       .pipe(
         map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+        tap((countries) => this.queryCacheCapital.set(query, countries)),
         delay(1000),
         catchError(() => of([]))
       );
   }
 
   searchByCountry(query: string): Observable<Country[]> {
+    if (this.queryCacheCountry.has(query)) {
+      return of(this.queryCacheCountry.get(query) ?? []);
+    }
+
     return this.http
       .get<RestCountry[]>(`${API_URL}/name/${encodeURIComponent(query)}`)
       .pipe(
         map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+        tap((countries) => this.queryCacheCountry.set(query, countries)),
         delay(1000),
         catchError(() => of([]))
       );
@@ -57,7 +70,8 @@ export class CountryService {
     return this.http
       .get<RestCountry[]>(`${API_URL}/alpha/${code}`)
       .pipe(
-        map((resp) => CountryMapper.mapRestCountryToCountry(resp[0]))
+        map((resp) => CountryMapper.mapRestCountryToCountry(resp[0])),
+        delay(2000),
       );
   }
 }

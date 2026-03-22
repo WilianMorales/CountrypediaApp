@@ -108,6 +108,12 @@ export class CompareCountryComponent {
     }
   }
 
+  formatCurrencies(country: Country): string {
+    return country.currencies
+      .map(c => c.symbol ? `(${c.symbol}) ${c.name}` : c.name)
+      .join(', ') || 'Sin moneda';
+  }
+
   clearCountry(side: 'A' | 'B'): void {
     if (side === 'A') {
       this.selectedA.set(null);

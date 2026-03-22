@@ -108,7 +108,11 @@
                 />
               </td>
               <td class="font-semibold">{{ country.name }}</td>
-              <td>{{ country.currencies }}</td>
+              <td>
+                {{ country.currencies[0].symbol
+                    ? '(' + country.currencies[0].symbol + ') ' + country.currencies[0].name
+                    : (country.currencies[0].name || 'Sin moneda') }}
+              </td>
               <td>{{ country.capital }}</td>
               <td>{{ country.continents }}</td>
               <td class="text-center">

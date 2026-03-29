@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { of } from 'rxjs';
+
+import { rxResource } from '@angular/core/rxjs-interop';
 import { CountryTableComponent } from "../../components/country-table/country-table.component";
+import { Region } from '../../interfaces/region.type';
+import { CountryService } from './../../services/country.service';
 
 @Component({
   selector: 'app-by-region-page',
@@ -7,5 +12,27 @@ import { CountryTableComponent } from "../../components/country-table/country-ta
   templateUrl: './by-region-page.component.html',
 })
 export class ByRegionPageComponent {
+
+  countryService = inject(CountryService)
+
+  public regions: Region[] = [
+    'Africa',
+    'Americas',
+    'Asia',
+    'Europe',
+    'Oceania',
+    'Antarctic',
+  ];
+
+  selectedRegion = signal<Region | null>(null);
+
+  countryResource = rxResource({
+    request: () => ({ region: this.selectedRegion() }),
+    loader: ({ request }) => {
+      if(!request.region) return of([]);
+
+      return this.countryService.searchByRegion(request.region);
+    }
+  })
 
 }

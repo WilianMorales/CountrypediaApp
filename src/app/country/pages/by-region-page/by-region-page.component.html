@@ -1,1 +1,43 @@
-<country-table-list [countries]="[]" />
+<div class="max-w-7xl mx-auto px-4 py-5">
+  <div class="text-center mb-8">
+    <p class="mt-1 text-slate-400">
+      Selecciona una región y explora los países disponibles
+    </p>
+  </div>
+
+  <section class="mb-8">
+    <div class="flex flex-wrap justify-center gap-3">
+      @for (region of regions; track region) {
+        <button
+          type="button"
+          class="btn rounded-xl min-w-[120px] transition-all duration-200 hover:bg-amber-400 border-amber-400 hover:border-amber-400"
+          [class.bg-amber-400]="selectedRegion() === region"
+          [class.text-slate-800]="selectedRegion() === region"
+          [class.btn-outline]="selectedRegion() !== region"
+          (click)="selectedRegion.set(region)">
+          {{ region }}
+        </button>
+      }
+    </div>
+  </section>
+
+  @if (!selectedRegion()) {
+    <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 py-10 text-center">
+      <p class="text-slate-500">Selecciona una región para ver la lista de países</p>
+    </div>
+  } @else {
+    <div class="mb-4 text-center">
+      <span class="inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">
+        Región seleccionada: {{ selectedRegion() }}
+      </span>
+    </div>
+
+    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 px-4">
+      <country-table-list
+      [countries]="countryResource.value() ?? []"
+      [errorMessage]="countryResource.error()"
+      [isEmpty]="(countryResource.value()?.length === 0) && !countryResource.isLoading()"
+      [isLoading]="countryResource.isLoading()" />
+    </section>
+  }
+</div>

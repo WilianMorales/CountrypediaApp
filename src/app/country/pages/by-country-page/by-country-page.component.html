@@ -4,7 +4,7 @@
   </div>
 
   <country-search-input
-    (value)="query.set($event)"
+    (value)="onSearch($event)"
     placeholder="Buscar por país..."
     [initialValue]="query()" />
 

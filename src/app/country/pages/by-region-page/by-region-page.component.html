@@ -14,7 +14,7 @@
           [class.bg-amber-400]="selectedRegion() === region"
           [class.text-slate-800]="selectedRegion() === region"
           [class.btn-outline]="selectedRegion() !== region"
-          (click)="selectedRegion.set(region)">
+          (click)="selectRegion(region)">
           {{ region }}
         </button>
       }

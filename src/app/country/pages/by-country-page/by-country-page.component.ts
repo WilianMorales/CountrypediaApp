@@ -1,5 +1,5 @@
-import { Component, inject, linkedSignal, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, inject, linkedSignal } from '@angular/core';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -14,26 +14,28 @@ import { CountryService } from '../../services/country.service';
 })
 export class ByCountryPageComponent {
   countryService = inject(CountryService);
-
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
 
-  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  queryParamMap = toSignal(this.activatedRoute.queryParamMap, {
+    initialValue: this.activatedRoute.snapshot.queryParamMap
+  });
 
-  query = linkedSignal(() => this.queryParam);
+  query = linkedSignal(() => this.queryParamMap().get('query') ?? '');
 
   countryResource = rxResource({
-    request: () => ({ query: this.query() }),
+    request: () => ({ query: this.query().trim() }),
     loader: ({ request }) => {
       if (!request.query) return of([]);
-
-      this.router.navigate(['/country/by-country'], {
-        queryParams: {
-          query: request.query
-        }
-      })
-
-      return  this.countryService.searchByCountry(request.query);
+      return this.countryService.searchByCountry(request.query);
     }
   });
+
+  onSearch(query: string) {
+    const value = query.trim();
+
+    this.router.navigate(['/country/by-country'], {
+      queryParams: value ? { query: value } : {}
+    });
+  }
 }

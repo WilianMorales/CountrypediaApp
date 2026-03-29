@@ -5,7 +5,8 @@
 
   <country-search-input
     (value)="query.set($event)"
-    placeholder="Buscar por país..." />
+    placeholder="Buscar por país..."
+    [initialValue]="query()" />
 
   @if (!query()) {
     <div class="mt-10 flex flex-col items-center justify-center gap-4 text-center">

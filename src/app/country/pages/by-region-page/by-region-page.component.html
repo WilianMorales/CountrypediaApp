@@ -32,12 +32,10 @@
       </span>
     </div>
 
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 px-4">
-      <country-table-list
-      [countries]="countryResource.value() ?? []"
-      [errorMessage]="countryResource.error()"
-      [isEmpty]="(countryResource.value()?.length === 0) && !countryResource.isLoading()"
-      [isLoading]="countryResource.isLoading()" />
-    </section>
+    <country-table-list
+        [countries]="countryResource.value() ?? []"
+        [errorMessage]="countryResource.error()"
+        [isEmpty]="(countryResource.value()?.length === 0) && !countryResource.isLoading()"
+        [isLoading]="countryResource.isLoading()" />
   }
 </div>

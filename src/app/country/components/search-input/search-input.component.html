@@ -11,7 +11,8 @@
         autofocus
         #txtSearch
         (keyup.enter)="value.emit(txtSearch.value)"
-        (keyup)="inputValue.set(txtSearch.value)" />
+        (keyup)="inputValue.set(txtSearch.value)"
+        [value]="inputValue()" />
 
       <button
         class="h-full bg-amber-500 px-4 py-3 font-semibold text-white transition-all duration-300 hover:bg-amber-600 sm:px-6"
